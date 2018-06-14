@@ -31,7 +31,7 @@ class WideResNet_Encoder:
         self.epochs = epochs
         self.iterations = 391
         self.weight_decay = 0.0005
-        self.log_filepath = r'adam1e-4_b256_wide_resnet_encoder/'
+        self.log_filepath = r'adamlr1e-4_b256_wide_resnet_encoder/'
 
         self.encoder = encoder(level=encode_level)
 
