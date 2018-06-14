@@ -47,13 +47,22 @@ class WideResNet_Encoder:
         return self._model.count_params()
 
     def scheduler(self, epoch):
+        ## SGD param
+        # if epoch <= 60:
+        #     return 0.1
+        # if epoch <= 120:
+        #     return 0.02
+        # if epoch <= 160:
+        #     return 0.004
+        # return 0.0008
+        ### adam param
         if epoch <= 60:
-            return 0.1
+            return 0.001
         if epoch <= 120:
-            return 0.02
+            return 0.0001
         if epoch <= 160:
-            return 0.004
-        return 0.0008
+            return 0.00001
+        return 0.000001
 
     def color_preprocessing(self, x_train, x_test):
         x_train = x_train.astype('float32')
