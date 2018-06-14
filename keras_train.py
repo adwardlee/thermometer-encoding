@@ -12,6 +12,7 @@ from keras.utils import np_utils
 
 from encoder import encoder
 import numpy as np
+import os
 
 batch_size = 128
 nb_classes = 10
@@ -19,6 +20,8 @@ nb_epoch = 200
 data_augmentation = False
 n = 5  # depth = 6*n + 4
 k = 4  # widen factor
+save_dir = 'model'
+model_name = 'encoding'
 
 # the CIFAR10 images are 32x32 RGB with 10 labels
 img_rows, img_cols = 32, 32
@@ -175,3 +178,14 @@ else:
                         samples_per_epoch=X_train.shape[0],
                         nb_epoch=nb_epoch,
                         validation_data=(X_test, Y_test))
+
+if not os.path.isdir(save_dir):
+    os.makedirs(save_dir)
+model_path = os.path.join(save_dir, model_name)
+model.save(model_path)
+print('Saved trained model at %s ' % model_path)
+
+# Score trained model.
+scores = model.evaluate(X_test, Y_test, verbose=1)
+print('Test loss:', scores[0])
+print('Test accuracy:', scores[1])
