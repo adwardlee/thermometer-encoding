@@ -20,7 +20,7 @@ encode_level = 15
 class WideResNet_Encoder:
     def __init__(self, epochs=200, batch_size=256, load_weights=True):
         self.name = 'wide_resnet'
-        self.model_filename = 'adam_b256_wide_resnet_encoder/wide_resnet.h5'
+        self.model_filename = 'adamlr1e-4_b256_wide_resnet_encoder/wide_resnet.h5'
 
         self.depth = 34
         self.wide = 4
@@ -31,7 +31,7 @@ class WideResNet_Encoder:
         self.epochs = epochs
         self.iterations = 391
         self.weight_decay = 0.0005
-        self.log_filepath = r'adam_b256_wide_resnet_encoder/'
+        self.log_filepath = r'adam1e-4_b256_wide_resnet_encoder/'
 
         self.encoder = encoder(level=encode_level)
 
@@ -57,11 +57,11 @@ class WideResNet_Encoder:
         # return 0.0008
         ### adam param
         if epoch <= 60:
-            return 0.001
-        if epoch <= 120:
             return 0.0001
-        if epoch <= 160:
+        if epoch <= 120:
             return 0.00001
+        if epoch <= 160:
+            return 0.000001
         return 0.000001
 
     def color_preprocessing(self, x_train, x_test):
