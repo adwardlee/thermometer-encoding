@@ -18,9 +18,9 @@ encode_level = 15
 
 # Code taken from https://github.com/BIGBALLON/cifar-10-cnn
 class WideResNet_Encoder:
-    def __init__(self, epochs=200, batch_size=128, load_weights=True):
+    def __init__(self, epochs=200, batch_size=256, load_weights=True):
         self.name = 'wide_resnet'
-        self.model_filename = 'true_wide_resnet_encoder/wide_resnet.h5'
+        self.model_filename = 'adam_b256_wide_resnet_encoder/wide_resnet.h5'
 
         self.depth = 34
         self.wide = 4
@@ -31,7 +31,7 @@ class WideResNet_Encoder:
         self.epochs = epochs
         self.iterations = 391
         self.weight_decay = 0.0005
-        self.log_filepath = r'true_wide_resnet_encoder/'
+        self.log_filepath = r'adam_b256_wide_resnet_encoder/'
 
         self.encoder = encoder(level=encode_level)
 
@@ -161,8 +161,9 @@ class WideResNet_Encoder:
         resnet.summary()
 
         # set optimizer
-        sgd = optimizers.SGD(lr=.1, momentum=0.9, nesterov=True)
-        resnet.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
+        adam = optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-8)
+        #sgd = optimizers.SGD(lr=.1, momentum=0.9, nesterov=True)
+        resnet.compile(loss='categorical_crossentropy', optimizer=adam, metrics=['accuracy'])
 
         # set callback
         tb_cb = TensorBoard(log_dir=self.log_filepath, histogram_freq=0)
