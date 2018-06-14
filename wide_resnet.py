@@ -17,7 +17,7 @@ from train_plot import PlotLearning
 class WideResNet:
     def __init__(self, epochs=200, batch_size=128, load_weights=True):
         self.name = 'wide_resnet'
-        self.model_filename = 'networks/models/wide_resnet.h5'
+        self.model_filename = 'wide_resnet_models/wide_resnet.h5'
 
         self.depth = 34
         self.wide = 4
@@ -28,7 +28,7 @@ class WideResNet:
         self.epochs = epochs
         self.iterations = 391
         self.weight_decay = 0.0005
-        self.log_filepath = r'nmodels/'
+        self.log_filepath = r'wide_resnet_models/'
 
         if load_weights:
             try:
