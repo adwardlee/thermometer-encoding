@@ -17,7 +17,7 @@ from encoder import encoder
 encode_level = 15
 
 # Code taken from https://github.com/BIGBALLON/cifar-10-cnn
-class WideResNet:
+class WideResNet_Encoder:
     def __init__(self, epochs=200, batch_size=128, load_weights=True):
         self.name = 'wide_resnet'
         self.model_filename = 'networks/models/wide_resnet.h5'
