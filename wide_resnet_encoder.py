@@ -20,7 +20,7 @@ encode_level = 15
 class WideResNet_Encoder:
     def __init__(self, epochs=200, batch_size=128, load_weights=True):
         self.name = 'wide_resnet'
-        self.model_filename = 'wide_resnet_encoder/wide_resnet.h5'
+        self.model_filename = 'true_wide_resnet_encoder/wide_resnet.h5'
 
         self.depth = 34
         self.wide = 4
@@ -31,7 +31,7 @@ class WideResNet_Encoder:
         self.epochs = epochs
         self.iterations = 391
         self.weight_decay = 0.0005
-        self.log_filepath = r'wide_resnet_encoder/'
+        self.log_filepath = r'true_wide_resnet_encoder/'
 
         self.encoder = encoder(level=encode_level)
 
@@ -58,8 +58,14 @@ class WideResNet_Encoder:
     def color_preprocessing(self, x_train, x_test):
         x_train = x_train.astype('float32')
         x_test = x_test.astype('float32')
-        mean = [125.307, 122.95, 113.865]
-        std = [62.9932, 62.0887, 66.7048]
+        # mean = [125.307, 122.95, 113.865]
+        # std = [62.9932, 62.0887, 66.7048]
+        # for i in range(3):
+        #     x_train[:, :, :, i] = (x_train[:, :, :, i] - mean[i]) / std[i]
+        #     x_test[:, :, :, i] = (x_test[:, :, :, i] - mean[i]) / std[i]
+
+        mean = [0, 0, 0]
+        std = [255, 255 , 255]
         for i in range(3):
             x_train[:, :, :, i] = (x_train[:, :, :, i] - mean[i]) / std[i]
             x_test[:, :, :, i] = (x_test[:, :, :, i] - mean[i]) / std[i]
@@ -188,8 +194,13 @@ class WideResNet_Encoder:
         if imgs.ndim < 4:
             imgs = np.array([imgs])
         imgs = imgs.astype('float32')
-        mean = [125.307, 122.95, 113.865]
-        std = [62.9932, 62.0887, 66.7048]
+        # mean = [125.307, 122.95, 113.865]
+        # std = [62.9932, 62.0887, 66.7048]
+        # for img in imgs:
+        #     for i in range(3):
+        #         img[:, :, i] = (img[:, :, i] - mean[i]) / std[i]
+        mean = [0, 0, 0]
+        std = [255, 255, 255]
         for img in imgs:
             for i in range(3):
                 img[:, :, i] = (img[:, :, i] - mean[i]) / std[i]
