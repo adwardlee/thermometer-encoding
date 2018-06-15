@@ -128,10 +128,10 @@ class CIFAR:
         train_data = []
         train_labels = []
 
-        if not os.path.exists("cifar-10-batches-bin"):
-            urllib.request.urlretrieve("https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz",
-                                       "cifar-data.tar.gz")
-            os.popen("tar -xzf cifar-data.tar.gz").read()
+        #if not os.path.exists("cifar-10-batches-bin"):
+        #    urllib.request.urlretrieve("https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz",
+        #                               "cifar-data.tar.gz")
+        #    os.popen("tar -xzf cifar-data.tar.gz").read()
 
         (x_train, y_train), (x_test, y_test) = cifar10.load_data()
 
@@ -271,7 +271,7 @@ BATCH_SIZE = 1
 
 with tf.Session() as sess:
     #data, model = MNIST(), MNISTModel("models/mnist", sess)
-    data, model = CIFAR(), CIFAR_WIDE("models/wide_resnet.h5", sess)
+    data, model = CIFAR(), CIFAR_WIDE("true_wide_resnet_encoder/wide_resnet.h5", sess)
     #data, model = ImageNet(), InceptionModel(sess)
 
     x = tf.placeholder(tf.float32, (None, model.image_size, model.image_size, model.num_channels))
